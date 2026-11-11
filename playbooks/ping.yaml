@@ -1,0 +1,15 @@
+---
+- hosts: all
+  gather_facts: falsee
+  tasks:
+    - name: Ping hosts
+      ansible.builtin.ping:
+      register: ping_result
+      ignore_errors: true
+
+    - name: Show ping result
+      ansible.builtin.debug:
+        msg: >-
+          {{ inventory_hostname }}:
+          {{ 'SUCCESS - pong' if ping_result.ping is defined and ping_result.ping == 'pong'
+             else 'FAILED - unreachable' }}
