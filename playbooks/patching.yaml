@@ -1,0 +1,11 @@
+---
+- name: Update packages on Debian and RedHat based systems
+  hosts: all
+  become: true
+  gather_facts: true
+
+  tasks:
+
+    - name: Show detected operating system
+      ansible.builtin.debug:
+        msg: "{{ inventory_hostname }} - {{ ansible_facts.distribution }} {{ ansible_facts.distribution_version }} ({{ ansible_facts.os_family }})"
