@@ -20,3 +20,15 @@
       ansible.builtin.dnf:
         update_cache: true
       when: ansible_facts.os_family == "RedHat"
+
+    - name: Install patches on Debian-based servers
+      ansible.builtin.apt:
+        upgrade: dist
+      when: ansible_os_family == "Debian"
+  
+    - name: Install patches on Red Hat-based servers
+      ansible.builtin.dnf:
+        name: "*"
+        state: latest
+        update_only: true
+      when: ansible_os_family == "RedHat"
