@@ -9,3 +9,15 @@
     - name: Show detected operating system
       ansible.builtin.debug:
         msg: "{{ inventory_hostname }} - {{ ansible_facts.distribution }} {{ ansible_facts.distribution_version }} ({{ ansible_facts.os_family }})"
+
+    - name: Update APT package cache
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+      when: ansible_facts.os_family == "Debian"
+      
+    - name: Refresh DNF cache
+      ansible.builtin.dnf:
+        update_cache: true
+        cache_valid_time: 3600
+      when: ansible_facts.os_family == "Debian"
